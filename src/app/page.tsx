@@ -6,12 +6,12 @@ export default function HomePage() {
     <PageShell>
       <header className="mb-12 pt-8">
         <h1 className="mb-4 text-2xl font-medium leading-snug">
-          取り柄がないのではなく、
+          あなたが当たり前にやっていることは、
           <br />
-          気づいていないだけかもしれない
+          誰かにとっては価値かもしれない。
         </h1>
         <p className="text-sm text-muted leading-relaxed">
-          22の質問と、その後の記録から、あなたの中で繰り返されていることを一緒に観察します。診断や点数付けはしません。
+          22の質問と日々の記録から、あなたの中で繰り返されていることを一緒に見つけていきます。
         </p>
       </header>
 
@@ -32,12 +32,13 @@ export default function HomePage() {
       </div>
 
       {process.env.NODE_ENV === "development" && (
-        <p className="mt-10 text-center">
-          <Link
-            href="/dev/interview-quick"
-            className="text-xs text-muted underline"
-          >
-            開発: 22問入力済みで分析まで試す
+        <p className="mt-10 text-center text-xs text-muted space-x-3">
+          <Link href="/dev/screenshot" className="underline">
+            開発: スクショ用（本番画面）
+          </Link>
+          <span aria-hidden>·</span>
+          <Link href="/dev/interview-quick" className="underline">
+            API発見テスト
           </Link>
         </p>
       )}

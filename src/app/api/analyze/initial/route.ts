@@ -71,7 +71,7 @@ export async function POST(request: Request) {
 
     if (!text) {
       return NextResponse.json(
-        { error: "分析結果が空でした" },
+        { error: "見えてきたことが空でした" },
         { status: 502 },
       );
     }
@@ -82,7 +82,7 @@ export async function POST(request: Request) {
     } catch {
       console.error("Failed to parse Claude JSON output", text.slice(0, 500));
       return NextResponse.json(
-        { error: "分析結果の解析に失敗しました" },
+        { error: "応答の読み取りに失敗しました" },
         { status: 502 },
       );
     }
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
     if (!result) {
       console.error("Invalid analysis shape", parsed);
       return NextResponse.json(
-        { error: "分析結果の形式が不正です" },
+        { error: "応答の形式が不正です" },
         { status: 502 },
       );
     }
@@ -99,7 +99,8 @@ export async function POST(request: Request) {
     return NextResponse.json(result);
   } catch (e) {
     console.error("Anthropic API error", e);
-    let message = "分析に失敗しました。しばらくしてから再度お試しください。";
+    let message =
+      "見えてきたことが取得できませんでした。しばらくしてから再度お試しください。";
     if (e instanceof Error) {
       if (e.message.includes("401")) {
         message =

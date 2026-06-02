@@ -23,7 +23,7 @@ export function InterviewQuickStartPanel() {
     <div className="space-y-6">
       <p className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950 leading-relaxed">
         開発専用です。22問の回答は固定のダミーデータが入っています。ボタン1つで本番と同じ
-        「分析中 → 発見候補」画面まで進みます（Claude API を呼びます）。
+        「回答を読んでいます → 見えてきたこと」画面まで進みます（Claude API を呼びます）。
       </p>
 
       <button
@@ -31,7 +31,7 @@ export function InterviewQuickStartPanel() {
         onClick={startAnalysis}
         className="w-full rounded-xl bg-accent py-4 text-sm font-medium text-white"
       >
-        分析を開始（22問入力済み）
+        見えてきたことを探す（22問入力済み）
       </button>
 
       <button

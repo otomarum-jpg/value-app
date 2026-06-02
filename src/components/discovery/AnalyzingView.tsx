@@ -33,7 +33,7 @@ export function AnalyzingView() {
           const data = (await res.json().catch(() => ({}))) as {
             error?: string;
           };
-          throw new Error(data.error ?? "分析に失敗しました");
+          throw new Error(data.error ?? "見えてきたことが取得できませんでした");
         }
 
         const result = (await res.json()) as InitialAnalysisResult;
@@ -43,7 +43,11 @@ export function AnalyzingView() {
         router.replace("/discovery");
       } catch (e) {
         if (cancelled) return;
-        setError(e instanceof Error ? e.message : "分析に失敗しました");
+        setError(
+          e instanceof Error
+            ? e.message
+            : "見えてきたことが取得できませんでした",
+        );
       }
     }
 
@@ -73,7 +77,7 @@ export function AnalyzingView() {
       <div className="mb-6 h-10 w-10 animate-pulse rounded-full bg-accent/30" />
       <h1 className="mb-2 text-xl font-medium">回答を読んでいます</h1>
       <p className="max-w-xs text-sm text-muted leading-relaxed">
-        断定はしません。複数の回答に共通するものを、根拠と仮説に分けて整理しています。
+        断定はしません。複数の回答に共通する気になる点を、見えてきたことと仮説に分けて探しています。
       </p>
     </div>
   );

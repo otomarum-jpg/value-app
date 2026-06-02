@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AnalyzeTestPanel } from "@/components/dev/AnalyzeTestPanel";
+import { ScreenshotGuidePanel } from "@/components/dev/ScreenshotGuidePanel";
 import { PageShell } from "@/components/ui/PageShell";
 
-export default function DevAnalyzeTestPage() {
+export default function DevScreenshotPage() {
   if (process.env.NODE_ENV !== "development") {
     notFound();
   }
@@ -14,16 +14,15 @@ export default function DevAnalyzeTestPage() {
         <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted">
           Dev only
         </p>
-        <h1 className="mb-2 text-xl font-medium">初回発見 API テスト</h1>
+        <h1 className="mb-2 text-xl font-medium">スクリーンショット用</h1>
         <p className="text-sm text-muted leading-relaxed">
-          インタビューをスキップし、固定のダミー22問回答で Claude API
-          を試せます。
+          共有用に本番と同じ画面を開きます。省略テストページそのものは撮影しないでください。
         </p>
       </header>
-      <AnalyzeTestPanel />
+      <ScreenshotGuidePanel />
       <p className="mt-10 text-center text-xs text-muted">
         <Link href="/dev/interview-quick" className="underline">
-          本番フローで1クリック発見はこちら
+          インタビュー省略テスト
         </Link>
       </p>
     </PageShell>

@@ -4,7 +4,7 @@ export type InterviewAnswer = {
   text: string;
 };
 
-/** 初回分析の結果（発見候補画面） */
+/** 初回発見の結果（発見候補画面） */
 export type InitialAnalysisResult = {
   discoveryCandidates: DiscoveryCandidate[];
   contradictionPoints: ContradictionPoint[];

@@ -43,7 +43,7 @@ export function AnalyzeTestPanel() {
         throw new Error(
           "error" in data && data.error
             ? data.error
-            : `HTTP ${res.status}: 分析に失敗しました`,
+            : `HTTP ${res.status}: 取得に失敗しました`,
         );
       }
 
@@ -51,7 +51,7 @@ export function AnalyzeTestPanel() {
       setElapsedMs(Math.round(performance.now() - started));
       setView("result");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "分析に失敗しました");
+      setError(e instanceof Error ? e.message : "取得に失敗しました");
       setView("idle");
     }
   }
@@ -78,7 +78,7 @@ export function AnalyzeTestPanel() {
           disabled={view === "loading"}
           className="rounded-xl bg-accent px-5 py-3 text-sm font-medium text-white disabled:opacity-50"
         >
-          {view === "loading" ? "分析中…" : "ダミーデータで分析を実行"}
+          {view === "loading" ? "読み取り中…" : "ダミーデータでAPIを実行"}
         </button>
         <button
           type="button"
@@ -120,6 +120,17 @@ export function AnalyzeTestPanel() {
               className="underline"
             >
               発見画面で確認（sessionStorage に保存）
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                saveInterviewAnswers(DUMMY_INTERVIEW_ANSWERS);
+                saveInitialAnalysis(result);
+                router.push("/dev/export");
+              }}
+              className="underline"
+            >
+              壁打ち用エクスポートへ
             </button>
           </div>
 
