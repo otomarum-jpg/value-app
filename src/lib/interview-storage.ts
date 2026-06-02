@@ -1,4 +1,4 @@
-import type { InterviewAnswer, InitialAnalysisResult, DailyLog } from "./types";
+import type { InterviewAnswer, InitialAnalysisResult, DailyLog, DevObservationLog } from "./types";
 
 const ANSWERS_KEY = "value-app:interview-answers";
 const ANALYSIS_KEY = "value-app:initial-analysis";
@@ -69,4 +69,25 @@ export function updateDailyLog(id: string, patch: Partial<Pick<DailyLog, "ai_fol
   const logs = loadDailyLogs();
   const updated = logs.map((l) => (l.id === id ? { ...l, ...patch } : l));
   localStorage.setItem(DAILY_LOGS_KEY, JSON.stringify(updated));
+}
+
+const DEV_OBS_KEY = "value-app:dev-observations";
+
+export function saveDevObservation(log: DevObservationLog): void {
+  if (typeof window === "undefined") return;
+  const existing = loadDevObservations();
+  const updated = [...existing.filter((l) => l.date !== log.date), log];
+  updated.sort((a, b) => a.date.localeCompare(b.date));
+  localStorage.setItem(DEV_OBS_KEY, JSON.stringify(updated));
+}
+
+export function loadDevObservations(): DevObservationLog[] {
+  if (typeof window === "undefined") return [];
+  const raw = localStorage.getItem(DEV_OBS_KEY);
+  if (!raw) return [];
+  try {
+    return JSON.parse(raw) as DevObservationLog[];
+  } catch {
+    return [];
+  }
 }

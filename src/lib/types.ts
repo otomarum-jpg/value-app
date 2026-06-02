@@ -34,3 +34,13 @@ export type DailyLog = {
   followup_answer?: string;
   created_at: string;
 };
+
+/** 開発者用ユーザーゼロ検証ログ */
+export type DevObservationLog = {
+  date: string;
+  opened: boolean;
+  char_count: number;
+  felt_hassle: "none" | "a-little" | "yes";
+  ai_answered: boolean;
+  notes: string;
+};

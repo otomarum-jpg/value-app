@@ -33,8 +33,12 @@ export default function HomePage() {
 
       {process.env.NODE_ENV === "development" && (
         <p className="mt-10 text-center text-xs text-muted space-x-3">
+          <Link href="/dev/user-zero" className="underline">
+            検証ログ
+          </Link>
+          <span aria-hidden>·</span>
           <Link href="/dev/screenshot" className="underline">
-            開発: スクショ用（本番画面）
+            スクショ用
           </Link>
           <span aria-hidden>·</span>
           <Link href="/dev/interview-quick" className="underline">
