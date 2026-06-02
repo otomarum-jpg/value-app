@@ -6,9 +6,9 @@ export default function DiscoveryPage() {
   return (
     <PageShell backHref="/interview" backLabel="インタビュー">
       <header className="mb-8">
-        <h1 className="mb-2 text-xl font-medium">回答から見えてきたこと</h1>
+        <h1 className="mb-2 text-xl font-medium">あなたについて気になったこと</h1>
         <p className="text-sm text-muted leading-relaxed">
-          まだ確定した答えではありません。気になる共通点と、これから一緒に確かめていく場面です。
+          まだ答えではありません。気になる共通点と、これから一緒に観察していく場面です。
         </p>
       </header>
       <DiscoveryView />

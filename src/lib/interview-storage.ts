@@ -1,4 +1,4 @@
-import type { InterviewAnswer, InitialAnalysisResult } from "./types";
+import type { InterviewAnswer, InitialAnalysisResult, DailyLog } from "./types";
 
 const ANSWERS_KEY = "value-app:interview-answers";
 const ANALYSIS_KEY = "value-app:initial-analysis";
@@ -39,4 +39,34 @@ export function clearInterviewSession(): void {
   if (typeof window === "undefined") return;
   sessionStorage.removeItem(ANSWERS_KEY);
   sessionStorage.removeItem(ANALYSIS_KEY);
+}
+
+const DAILY_LOGS_KEY = "value-app:daily-logs";
+
+export function saveDailyLog(log: Omit<DailyLog, "id" | "created_at">): DailyLog {
+  const newLog: DailyLog = {
+    ...log,
+    id: crypto.randomUUID(),
+    created_at: new Date().toISOString(),
+  };
+  const existing = loadDailyLogs();
+  localStorage.setItem(DAILY_LOGS_KEY, JSON.stringify([...existing, newLog]));
+  return newLog;
+}
+
+export function loadDailyLogs(): DailyLog[] {
+  if (typeof window === "undefined") return [];
+  const raw = localStorage.getItem(DAILY_LOGS_KEY);
+  if (!raw) return [];
+  try {
+    return JSON.parse(raw) as DailyLog[];
+  } catch {
+    return [];
+  }
+}
+
+export function updateDailyLog(id: string, patch: Partial<Pick<DailyLog, "ai_followup_question" | "followup_answer">>): void {
+  const logs = loadDailyLogs();
+  const updated = logs.map((l) => (l.id === id ? { ...l, ...patch } : l));
+  localStorage.setItem(DAILY_LOGS_KEY, JSON.stringify(updated));
 }

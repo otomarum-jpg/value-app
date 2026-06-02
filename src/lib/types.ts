@@ -25,3 +25,12 @@ export type ContradictionPoint = {
 export type ObservationTheme = {
   scene: string;
 };
+
+export type DailyLog = {
+  id: string;
+  content: string;
+  mode: "short" | "diary";
+  ai_followup_question?: string;
+  followup_answer?: string;
+  created_at: string;
+};
