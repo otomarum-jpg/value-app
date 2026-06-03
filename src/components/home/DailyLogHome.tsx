@@ -133,7 +133,7 @@ export function DailyLogHome() {
     return (
       <>
         <header className="mb-8">
-          <h1 className="mb-2 text-xl font-medium">今日の観察</h1>
+          <h1 className="mb-2 text-xl font-medium">今日の引っかかり</h1>
         </header>
         <div className="rounded-2xl border border-border bg-white p-6 text-center">
           <div className="mx-auto mb-3 h-6 w-6 animate-pulse rounded-full bg-accent/30" />
@@ -147,7 +147,7 @@ export function DailyLogHome() {
     return (
       <>
         <header className="mb-8">
-          <h1 className="mb-2 text-xl font-medium">今日の観察</h1>
+          <h1 className="mb-2 text-xl font-medium">今日の引っかかり</h1>
         </header>
         <div className="mb-6 rounded-2xl border border-border bg-white p-5">
           <p className="mb-1 text-xs text-muted">残せました。もう少しだけ聞かせてください。</p>
@@ -178,7 +178,7 @@ export function DailyLogHome() {
     return (
       <>
         <header className="mb-8">
-          <h1 className="mb-2 text-xl font-medium">今日の観察</h1>
+          <h1 className="mb-2 text-xl font-medium">今日の引っかかり</h1>
         </header>
         <div className="mb-6 rounded-2xl border border-border bg-white p-6 text-center">
           <p className="mb-1 font-medium">残せました</p>
@@ -204,20 +204,17 @@ export function DailyLogHome() {
   return (
     <>
       <header className="mb-8">
-        <h1 className="mb-2 text-xl font-medium">今日の観察</h1>
+        <h1 className="mb-2 text-xl font-medium">今日の引っかかり</h1>
         <p className="text-sm text-muted leading-relaxed">
-          あなたの価値は、普段の出来事の中に隠れています。今日はどんな場面があったか、覚えている範囲で残してください。
+          イラッとした、面白いと思った、気になった、違和感があった。出来事じゃなくて、感情が動いた瞬間を残してください。
         </p>
       </header>
 
       <DiscoveryProgress logs={logs} />
 
       <section className="mb-8 rounded-2xl border border-border bg-white p-5">
-        <h2 className="mb-1 text-sm font-medium">今、確かめていること</h2>
-        <p className="mb-4 text-xs text-muted">
-          このテーマに関係ありそうな出来事があれば、ぜひ残してください。
-        </p>
-        <ul className="list-inside list-disc space-y-2 text-sm leading-relaxed">
+        <h2 className="mb-1 text-sm font-medium">こんな場面があれば、ぜひ</h2>
+        <ul className="mt-3 list-inside list-disc space-y-2 text-sm leading-relaxed text-muted">
           {titles.map((title, i) => (
             <li key={i}>{title}</li>
           ))}
@@ -237,7 +234,7 @@ export function DailyLogHome() {
             }`}
           >
             <span className="block font-medium">ひとこと</span>
-            <span className="mt-1 block text-xs text-muted">思い出せる範囲で</span>
+            <span className="mt-1 block text-xs text-muted">一行でOK</span>
           </button>
           <button
             type="button"
@@ -248,12 +245,12 @@ export function DailyLogHome() {
                 : "border-border bg-white"
             }`}
           >
-            <span className="block font-medium">日記</span>
-            <span className="mt-1 block text-xs text-muted">出来事と気持ちまで</span>
+            <span className="block font-medium">もう少し</span>
+            <span className="mt-1 block text-xs text-muted">場面と気持ちを合わせて</span>
           </button>
         </div>
         <p className="mt-3 text-xs text-muted leading-relaxed">
-          詳しく書くほど、あなたの中で繰り返されている価値が見つけやすくなります。
+          小さな引っかかりでも、積み重ねると見えてくるものがあります。
         </p>
       </section>
 
@@ -265,8 +262,8 @@ export function DailyLogHome() {
           rows={mode === "diary" ? 8 : 4}
           placeholder={
             mode === "diary"
-              ? "今日あったことを、場面が思い出せる程度に書いてください"
-              : "今日、印象に残ったことを一行で"
+              ? "どんな場面で、どんな気持ちになったか"
+              : "今日、何かに反応した瞬間を一つ"
           }
           className="w-full resize-none rounded-2xl border border-border bg-white px-4 py-3 text-sm leading-relaxed placeholder:text-muted/70"
         />
