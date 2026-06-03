@@ -1,10 +1,58 @@
-import type { InitialAnalysisResult } from "@/lib/types";
+"use client";
+
+import { useState } from "react";
+import type { DiscoveryCandidate, InitialAnalysisResult } from "@/lib/types";
 
 type DiscoveryResultProps = {
   result: InitialAnalysisResult;
   /** エクスポート・スクリーンショット向けに少し大きく表示 */
   variant?: "default" | "capture";
 };
+
+function DiscoveryCandidateCard({
+  item,
+  capture,
+}: {
+  item: DiscoveryCandidate;
+  capture: boolean;
+}) {
+  const [expanded, setExpanded] = useState(capture);
+
+  return (
+    <li className="rounded-2xl border border-border bg-white p-5">
+      <h3 className="mb-3 font-medium">{item.title}</h3>
+      <p className="text-sm">
+        <span className="text-muted">仮説：</span>
+        {item.hypothesis}
+      </p>
+      {expanded ? (
+        <div className="mt-4 border-t border-border pt-4">
+          <p className="text-sm">
+            <span className="text-muted">見えてきたこと：</span>
+            {item.evidence}
+          </p>
+          {!capture && (
+            <button
+              type="button"
+              onClick={() => setExpanded(false)}
+              className="mt-3 text-xs text-muted"
+            >
+              ▲ 閉じる
+            </button>
+          )}
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setExpanded(true)}
+          className="mt-3 text-xs text-muted"
+        >
+          ▼ なぜそう思った？
+        </button>
+      )}
+    </li>
+  );
+}
 
 export function DiscoveryResult({
   result,
@@ -25,20 +73,7 @@ export function DiscoveryResult({
         </p>
         <ul className="space-y-5">
           {discoveryCandidates.map((item, i) => (
-            <li
-              key={i}
-              className="rounded-2xl border border-border bg-white p-5"
-            >
-              <h3 className="mb-3 font-medium">{item.title}</h3>
-              <p className="mb-2 text-sm">
-                <span className="text-muted">見えてきたこと：</span>
-                {item.evidence}
-              </p>
-              <p className="text-sm">
-                <span className="text-muted">仮説：</span>
-                {item.hypothesis}
-              </p>
-            </li>
+            <DiscoveryCandidateCard key={i} item={item} capture={capture} />
           ))}
         </ul>
       </section>
@@ -68,11 +103,16 @@ export function DiscoveryResult({
           観察テーマ
         </h2>
         <p className="mb-5 text-sm text-muted">
-          今後7日間、次の場面が現れたら覚えておいてください。
+          今後7日間、次の問いを頭の片隅に置いておいてください。
         </p>
-        <ul className="list-inside list-disc space-y-2 text-sm">
+        <ul className="space-y-3">
           {observationThemes.map((item, i) => (
-            <li key={i}>{item.scene}</li>
+            <li
+              key={i}
+              className="rounded-xl border border-border bg-white px-4 py-3 text-sm"
+            >
+              {item.scene}
+            </li>
           ))}
         </ul>
       </section>
