@@ -9,15 +9,31 @@ import type { InitialAnalysisResult } from "@/lib/types";
 export function DiscoveryView() {
   const router = useRouter();
   const [result, setResult] = useState<InitialAnalysisResult | null>(null);
+  const [missing, setMissing] = useState(false);
 
   useEffect(() => {
     const data = loadInitialAnalysis();
     if (!data) {
-      router.replace("/interview");
+      setMissing(true);
       return;
     }
     setResult(data);
-  }, [router]);
+  }, []);
+
+  if (missing) {
+    return (
+      <div className="text-center">
+        <p className="mb-4 text-sm text-muted">分析結果が見つかりませんでした</p>
+        <button
+          type="button"
+          onClick={() => router.push("/interview")}
+          className="text-sm text-accent underline"
+        >
+          インタビューからやり直す
+        </button>
+      </div>
+    );
+  }
 
   if (!result) {
     return (

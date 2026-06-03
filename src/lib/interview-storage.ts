@@ -35,6 +35,11 @@ export function loadInitialAnalysis(): InitialAnalysisResult | null {
   }
 }
 
+export function clearInterviewAnswers(): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(ANSWERS_KEY);
+}
+
 export function clearInterviewSession(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(ANSWERS_KEY);
