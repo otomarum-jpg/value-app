@@ -12,6 +12,8 @@ import {
 import { INITIAL_ANALYSIS_JSON_SCHEMA } from "@/lib/initial-analysis-schema";
 import { parseInitialAnalysisResult } from "@/lib/parse-initial-analysis";
 
+export const maxDuration = 60;
+
 export async function POST(request: Request) {
   let answers: InterviewAnswer[];
 

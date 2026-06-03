@@ -4,13 +4,17 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { ProgressBar } from "@/components/interview/ProgressBar";
 import { INTERVIEW_QUESTIONS } from "@/lib/interview-questions";
-import { saveInterviewAnswers } from "@/lib/interview-storage";
+import { loadInterviewAnswers, saveInterviewAnswers } from "@/lib/interview-storage";
 import type { InterviewAnswer } from "@/lib/types";
 
 export function InterviewForm() {
   const router = useRouter();
   const [index, setIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [answers, setAnswers] = useState<Record<number, string>>(() => {
+    const saved = loadInterviewAnswers();
+    if (!saved?.length) return {};
+    return Object.fromEntries(saved.map((a) => [a.questionId, a.text]));
+  });
   const question = INTERVIEW_QUESTIONS[index];
   const currentAnswer = answers[question.id] ?? "";
 

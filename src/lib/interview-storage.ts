@@ -5,12 +5,12 @@ const ANALYSIS_KEY = "value-app:initial-analysis";
 
 export function saveInterviewAnswers(answers: InterviewAnswer[]): void {
   if (typeof window === "undefined") return;
-  sessionStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
+  localStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
 }
 
 export function loadInterviewAnswers(): InterviewAnswer[] | null {
   if (typeof window === "undefined") return null;
-  const raw = sessionStorage.getItem(ANSWERS_KEY);
+  const raw = localStorage.getItem(ANSWERS_KEY);
   if (!raw) return null;
   try {
     return JSON.parse(raw) as InterviewAnswer[];
@@ -21,12 +21,12 @@ export function loadInterviewAnswers(): InterviewAnswer[] | null {
 
 export function saveInitialAnalysis(result: InitialAnalysisResult): void {
   if (typeof window === "undefined") return;
-  sessionStorage.setItem(ANALYSIS_KEY, JSON.stringify(result));
+  localStorage.setItem(ANALYSIS_KEY, JSON.stringify(result));
 }
 
 export function loadInitialAnalysis(): InitialAnalysisResult | null {
   if (typeof window === "undefined") return null;
-  const raw = sessionStorage.getItem(ANALYSIS_KEY);
+  const raw = localStorage.getItem(ANALYSIS_KEY);
   if (!raw) return null;
   try {
     return JSON.parse(raw) as InitialAnalysisResult;
@@ -37,8 +37,8 @@ export function loadInitialAnalysis(): InitialAnalysisResult | null {
 
 export function clearInterviewSession(): void {
   if (typeof window === "undefined") return;
-  sessionStorage.removeItem(ANSWERS_KEY);
-  sessionStorage.removeItem(ANALYSIS_KEY);
+  localStorage.removeItem(ANSWERS_KEY);
+  localStorage.removeItem(ANALYSIS_KEY);
 }
 
 const DAILY_LOGS_KEY = "value-app:daily-logs";

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
+  clearInterviewSession,
   loadInterviewAnswers,
   saveInitialAnalysis,
 } from "@/lib/interview-storage";
@@ -40,6 +41,7 @@ export function AnalyzingView() {
         if (cancelled) return;
 
         saveInitialAnalysis(result);
+        clearInterviewSession();
         router.replace("/discovery");
       } catch (e) {
         if (cancelled) return;
