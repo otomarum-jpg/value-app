@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ProgressBar } from "@/components/interview/ProgressBar";
 import { INTERVIEW_QUESTIONS } from "@/lib/interview-questions";
 import { loadInterviewAnswers, saveInterviewAnswers } from "@/lib/interview-storage";
@@ -15,8 +15,14 @@ export function InterviewForm() {
     if (!saved?.length) return {};
     return Object.fromEntries(saved.map((a) => [a.questionId, a.text]));
   });
+  const [showHint, setShowHint] = useState(false);
+
   const question = INTERVIEW_QUESTIONS[index];
   const currentAnswer = answers[question.id] ?? "";
+
+  useEffect(() => {
+    setShowHint(false);
+  }, [index]);
 
   const goNext = useCallback(() => {
     const trimmed = currentAnswer.trim();
@@ -63,7 +69,23 @@ export function InterviewForm() {
         autoFocus
       />
 
-      <div className="mt-8 flex gap-3">
+      <div className="mt-3 min-h-[3rem]">
+        {!showHint ? (
+          <button
+            type="button"
+            onClick={() => setShowHint(true)}
+            className="text-xs text-muted underline"
+          >
+            思い出せない場合は？
+          </button>
+        ) : (
+          <div className="rounded-xl bg-accent-soft/50 px-4 py-3 text-sm text-muted leading-relaxed">
+            {question.hint}
+          </div>
+        )}
+      </div>
+
+      <div className="mt-6 flex gap-3">
         {index > 0 && (
           <button
             type="button"
