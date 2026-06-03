@@ -16,7 +16,7 @@ export function AnalyzingView() {
   useEffect(() => {
     const answers = loadInterviewAnswers();
     if (!answers?.length) {
-      router.replace("/interview");
+      setError("回答データが見つかりませんでした。インタビューをやり直してください。");
       return;
     }
 
@@ -34,7 +34,9 @@ export function AnalyzingView() {
           const data = (await res.json().catch(() => ({}))) as {
             error?: string;
           };
-          throw new Error(data.error ?? "見えてきたことが取得できませんでした");
+          const detail = data.error ?? `HTTP ${res.status}`;
+          console.error("[AnalyzingView] API error:", res.status, detail);
+          throw new Error(`${detail} (${res.status})`);
         }
 
         const result = (await res.json()) as InitialAnalysisResult;
@@ -45,11 +47,10 @@ export function AnalyzingView() {
         router.replace("/discovery");
       } catch (e) {
         if (cancelled) return;
-        setError(
-          e instanceof Error
-            ? e.message
-            : "見えてきたことが取得できませんでした",
-        );
+        const msg =
+          e instanceof Error ? e.message : "見えてきたことが取得できませんでした";
+        console.error("[AnalyzingView] error:", msg, e);
+        setError(msg);
       }
     }
 
@@ -61,15 +62,25 @@ export function AnalyzingView() {
 
   if (error) {
     return (
-      <div className="text-center">
-        <p className="mb-4 text-sm text-red-700">{error}</p>
-        <button
-          type="button"
-          onClick={() => router.push("/interview")}
-          className="text-sm text-accent underline"
-        >
-          インタビューに戻る
-        </button>
+      <div className="text-center px-4">
+        <p className="mb-2 text-base font-medium text-red-700">分析に失敗しました</p>
+        <p className="mb-8 text-xs text-red-600 break-all leading-relaxed">{error}</p>
+        <div className="flex flex-col gap-3">
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="rounded-xl bg-accent py-3 text-sm font-medium text-white"
+          >
+            もう一度試す
+          </button>
+          <button
+            type="button"
+            onClick={() => router.push("/interview")}
+            className="py-3 text-sm text-muted underline"
+          >
+            インタビューに戻る
+          </button>
+        </div>
       </div>
     );
   }
